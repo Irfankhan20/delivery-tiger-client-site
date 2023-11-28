@@ -3,19 +3,23 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Provider/AuthProviders";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import useBook from "../../../hooks/useBook";
-import Swal from "sweetalert2";
 
+import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const BookingInfoUpdate = () => {
-    const { register, handleSubmit, reset } = useForm();
-    const [books, refetch] = useBook();
-    console.log(books);
+    const { register, handleSubmit, setValue } = useForm();
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const [weight, setWeight] = useState(0);
     const [price, setPrice] = useState(0);
+    const [book, setBook] = useState(null);
+    // console.log(book);
 
+
+    const params = useParams();
     // useEffect to calculate the price when the weight changes
     useEffect(() => {
         const calculatePrice = () => {
@@ -35,30 +39,61 @@ const BookingInfoUpdate = () => {
         calculatePrice();
     }, [weight]);
 
+
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/books/${params.id}`)
+        .then(res => {
+            // console.log(res);
+            res.status === 200?setBook(res.data): toast.error(res.data.messages);
+
+        })
+    },[])
+
+  
+useEffect(() => {
+    if(book){
+        setValue('phone', book?.phone);
+        setValue('type', book?.type);
+        setValue('weight', book?.weight);
+        setValue('receivername', book?.receivername);
+        setValue('receiverphone', book?.receiverphone);
+        setValue('address', book?.address);
+        setValue('date', book?.date);
+        setValue('price', book?.price);
+        setValue('latitude', book?.latitude);
+        setValue('longitude', book?.longitude);
+    }
+},[book])
+
+
     const onSubmit = async (data) => {
         const today = new Date().toISOString().split('T')[0];
-        const bookItem = {
-            address: data.address,
-            date: data.date,
-            bookingDate: today,
-            email: data.email,
-            latitude: data.latitude,
-            longitude: data.longitude,
-            name: data.name,
-            phone: data.phone,
-            price: price, 
-            receivername: data.receivername,
-            receiverphone: data.receiverphone,
-            type: data.type,
-            weight: isNaN(parseInt(data.weight)) ? 0 : parseInt(data.weight),
-            status: 'pending'
-        };
-
+        data.bookingDate = today;
+        data.status = 'pending';
+        console.log(data)
         
-        }
+
+        axiosPublic.patch(`/books/${params.id}`, data)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your Booking updated successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            })
+    };
+
+    // Use the first book in the array to pre-fill the input fields
+    
+
     return (
         <div className="">
-            <SectionTitle heading="book a parcel" subHeading='What is new?'></SectionTitle>
+            <SectionTitle heading="Update booking info" subHeading='are you sure?'></SectionTitle>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {/* user email  */}
@@ -99,7 +134,7 @@ const BookingInfoUpdate = () => {
                                     Parcel type
                                 </span>
                             </label>
-                            <input defaultValue={books?.type} type="text" placeholder="Parcel Type" {...register("type", { required: true })} className="input input-bordered border-1 border-purple-700 w-full" />
+                            <input type="text" placeholder="Parcel Type" {...register("type", { required: true })} className="input input-bordered border-1 border-purple-700 w-full" />
                         </div>
                         {/* parcel weight */}
                         <div className="form-control w-full flex-1">

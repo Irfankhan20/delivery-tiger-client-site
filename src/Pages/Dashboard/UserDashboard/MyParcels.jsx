@@ -107,7 +107,7 @@ const MyParcels = () => {
                                     </th>
                                     <th>
                                         <Link to={`/dashboard/updateItem/${book._id}`}>
-                                        <button className=" bg-purple-600 text-white px-2 py-1 rounded-full">Update</button></Link>
+                                        <button disabled={book.status !== 'pending' } className=" bg-purple-600 text-white px-2 py-1 rounded-full">Update</button></Link>
                                     </th>
                                     <th>
                                         <button onClick={() => handleDelete(book._id)} className=" bg-red-600 text-white px-2 py-1 rounded-full">Delete</button>

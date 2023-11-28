@@ -14,7 +14,7 @@ const Dashboard = () => {
     // const isAdmin = false;
     // const isInstructor = true;
     const [isAdmin, isdeliveryman] = useAdmin();
-    console.log(isAdmin, isdeliveryman);
+    // console.log(isAdmin, isdeliveryman);
 
 
     return (
