@@ -1,15 +1,18 @@
 import { Toaster } from 'react-hot-toast';
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useBook from "../../../hooks/useBook";
+// import useBook from "../../../hooks/useBook";
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
+import useCart from '../../../hooks/useCart';
 
 const MyParcels = () => {
     const axiosSecure = useAxiosSecure();
-    const [books, refetch] = useBook();
-    console.log(books);
-    const totalPrice = books.reduce((total, item) => total + item.price, 0).toFixed(2);
+    const {refetch, cart } = useCart();
+    // const [books, refetch] = useBook();
+    // console.log(books);
+    // console.log(cart);
+    const totalPrice = cart.reduce((total, item) => total + item.price, 0).toFixed(2);
     const calculateApproximateDeliveryDate = (bookingDate) => {
         const threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000; // Three days in milliseconds
         const bookingDateObject = new Date(bookingDate);
@@ -54,7 +57,7 @@ const MyParcels = () => {
             <div className="overflow-x-auto shadow-2xl rounded-lg" >
                 <div className='flex justify-between items-center bg-purple-200 py-6 px-4'>
                     <div>
-                        Selected Course : {books.length}
+                        My Bookings : {cart.length}
                     </div>
                     <div>
                         Total Payble: ${totalPrice}
@@ -82,7 +85,7 @@ const MyParcels = () => {
                     </thead>
                     <tbody>
                         {
-                            books.map((book, index) =>
+                            cart.map((book, index) =>
                                 <tr key={book._id}>
                                     <th>
                                         {index + 1}
