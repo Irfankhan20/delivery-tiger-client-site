@@ -1,16 +1,40 @@
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Provider/AuthProviders";
-import { useContext } from "react";
+import { useContext} from "react";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+// import { useParams } from "react-router-dom";
+// import axios from "axios";
+// import { toast } from "react-toastify";
 
 const MyProfile = () => {
     const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
-
+    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    const axiosPublic = useAxiosPublic();
+    
     const onSubmit = async (data) => {
         console.log(data);
+        //img upload to ingbb and then get an url
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        console.log(res);
         
     };
+
+    // useEffect(()=>{
+    //     axios.get(`http://localhost:5000/users/${params.id}`)
+    //     .then(res => {
+    //         // console.log(res);
+    //         res.status === 200?setBook(res.data): toast.error(res.data.messages);
+
+    //     })
+    // },[])
 
     return (
         <div className="">

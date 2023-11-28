@@ -10,6 +10,14 @@ const MyParcels = () => {
     const [books, refetch] = useBook();
     console.log(books);
     const totalPrice = books.reduce((total, item) => total + item.price, 0).toFixed(2);
+    const calculateApproximateDeliveryDate = (bookingDate) => {
+        const threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000; // Three days in milliseconds
+        const bookingDateObject = new Date(bookingDate);
+        const approximateDeliveryDateObject = new Date(bookingDateObject.getTime() + threeDaysInMilliseconds);
+        const formattedDate = approximateDeliveryDateObject.toISOString().split('T')[0];
+        return formattedDate;
+    };
+
 
     const handleDelete = id => {
         Swal.fire({
@@ -87,8 +95,8 @@ const MyParcels = () => {
                                         <br />
                                     </td>
                                     <td>
-                                        {/* Approximate date */}
-
+                                        {calculateApproximateDeliveryDate(book.bookingDate)}
+                                        <br />
                                     </td>
                                     <td>
                                         {book.bookingDate}
@@ -107,7 +115,7 @@ const MyParcels = () => {
                                     </th>
                                     <th>
                                         <Link to={`/dashboard/updateItem/${book._id}`}>
-                                        <button disabled={book.status !== 'pending' } className=" bg-purple-600 text-white px-2 py-1 rounded-full">Update</button></Link>
+                                            <button disabled={book.status !== 'pending'} className=" bg-purple-600 text-white px-2 py-1 rounded-full">Update</button></Link>
                                     </th>
                                     <th>
                                         <button onClick={() => handleDelete(book._id)} className=" bg-red-600 text-white px-2 py-1 rounded-full">Delete</button>

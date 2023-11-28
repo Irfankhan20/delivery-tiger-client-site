@@ -10,7 +10,7 @@ import Footer from "../../Pages/Shared/Footer/Footer";
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext)
-    console.log(user);
+    // console.log(user);
     // const isAdmin = false;
     // const isInstructor = true;
     const [isAdmin, isdeliveryman] = useAdmin();
