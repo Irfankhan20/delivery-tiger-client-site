@@ -1,30 +1,49 @@
+import { Helmet } from "react-helmet";
+import { Toaster } from "react-hot-toast";
 
 
 const AllDeliveryMen = () => {
     return (
-        <div className="overflow-x-auto">
-            <table className="table table-xs">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Delivery Men Name</th>
-                        <th>Phone Number</th>
-                        <th>Number Of Parcel Delivered</th>
-                        <th>Booking Status</th>
-                        <th>Average review</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>Quality Control Specialist</td>
-                        <td>Littel, Schaden and Vandervort</td>
-                        <td>Canada</td>
-                        <td>12/16/2020</td>
-                       </tr>
-                </tbody>
-            </table>
+        <div className=''>
+            <Helmet>
+                <title>DeliveryTiger | My Parcels</title>
+            </Helmet>
+            <div><Toaster /></div>
+            <div>
+                <h2 className="text-center mb-6 text-3xl font-medium">All Users List</h2>
+            </div>
+            <div className="overflow-x-auto shadow-2xl rounded-lg" >
+                <div className='flex justify-between items-center bg-purple-200 py-6 px-4'>
+                    {/* ... (existing code) */}
+                </div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Serial</th>
+                            <th>Delivery Men Name</th>
+                            <th>Delivery Men Phone</th>
+                            <th>Number Of Parcel Delivered</th>
+                            <th>Average Review</th>
+                            
+                        </tr>
+                    </thead>
+                    {/* <tbody>
+                        {groupedUsers.map((item, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{item.name}</td>
+                                <td>{item.phone}</td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                              </tr>
+                        ))}
+                    </tbody> */}
+                </table>
+            </div>
         </div>
     );
 };
