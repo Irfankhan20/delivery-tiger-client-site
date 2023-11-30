@@ -28,7 +28,7 @@ const MyProfile = () => {
     };
 
     // useEffect(()=>{
-    //     axios.get(`http://localhost:5000/users/${params.id}`)
+    //     axios.get(`https://delivery-tiger-server.vercel.app/users/${params.id}`)
     //     .then(res => {
     //         // console.log(res);
     //         res.status === 200?setBook(res.data): toast.error(res.data.messages);

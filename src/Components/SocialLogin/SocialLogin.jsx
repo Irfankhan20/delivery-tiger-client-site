@@ -29,7 +29,7 @@ const SocialLogin = () => {
     }
     return (
         <div className="p-8">
-            
+            {/* efgdfgdsfg */}
             <div>
                 <button onClick={handleGoogleSignIn} className="px-4">
                     <img className="w-10" src="https://i.ibb.co/ftwyb00/Google-G-Logo-svg.png" alt="" />

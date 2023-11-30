@@ -11,7 +11,7 @@ const useCart = () => {
         queryKey: ['carts', user?.email],
         enabled: !loading,
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`,{
+            const res = await fetch(`https://delivery-tiger-server.vercel.app/bookings?email=${user?.email}`,{
                 headers: {
                     authorization: `Bearer ${token}`
                 }

@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProviders";
 import axios from "axios";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://delivery-tiger-server.vercel.app'
 })
 const useAxiosSecure = () =>{
     const navigate = useNavigate();

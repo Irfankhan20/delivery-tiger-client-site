@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AuthContext } from "../../Provider/AuthProviders";
+import { toast } from "react-toastify";
 
 
 
@@ -24,6 +25,22 @@ const Register = () => {
 
     const onSubmit = data => {
         console.log(data);
+        const accepted = data.target.terms.checked;
+        console.log(accepted);
+
+        //accept terms and condition toast
+        if (!accepted) {
+            
+            toast.error('Please accept the Terms and Conditions', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            return;
+        }
         createUser(data.email, data.password)
             .then(result => {
 
@@ -172,9 +189,9 @@ const Register = () => {
 
                                 {/* terms and condition  */}
                                 <div className="mb-3 mt-3">
-                                    <input type="checkbox" name="terms" id="terms" />
-                                    <label className="ml-2 font-medium" htmlFor="terms">Accept Our <a className="text-[#5b4d91]" href="">Terms and condition</a> </label>
-                                </div>
+                                        <input type="checkbox" name="terms" id="terms" />
+                                        <label className="ml-2 font-medium" htmlFor="terms">Accept Our <a className="text-[#E21B70]" href="">Terms and condition</a> </label>
+                                    </div>
 
 
 

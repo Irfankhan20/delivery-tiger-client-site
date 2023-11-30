@@ -71,6 +71,10 @@ const AllUsers = () => {
         }
     }
 
+    const handleMakeDeliveryMen = ( ) => {
+
+    }
+
     return (
         <div className=''>
             <Helmet>
@@ -94,6 +98,7 @@ const AllUsers = () => {
                             <th>Number Of Parcel Booking</th>
                             <th>Total Spent Amount</th>
                             <th>Make Admin</th>
+                            <th>Make Delivery Men</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,6 +114,13 @@ const AllUsers = () => {
                                     {user.role === 'admin' ? 'Admin' : (
                                         <button onClick={() => handleMakeAdmin(user)} className="border-2 border-purple-700 px-2 py-1 rounded-full">
                                             <img src="https://i.ibb.co/0tmL62X/software-engineer.png" alt="" />
+                                        </button>
+                                    )}
+                                </th>
+                                <th>
+                                    {user.role === 'deliveryman' ? 'Deliveryman' : (
+                                        <button onClick={() => handleMakeDeliveryMen(user)} className="border-2 border-purple-700 px-2 py-1 rounded-full">
+                                            <img className="" src="https://i.ibb.co/9cWVw8H/delivery-man-1.png" alt="" />
                                         </button>
                                     )}
                                 </th>

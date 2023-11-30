@@ -41,7 +41,7 @@ const BookingInfoUpdate = () => {
 
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/books/${params.id}`)
+        axios.get(`https://delivery-tiger-server.vercel.app/books/${params.id}`)
         .then(res => {
             // console.log(res);
             res.status === 200?setBook(res.data): toast.error(res.data.messages);
